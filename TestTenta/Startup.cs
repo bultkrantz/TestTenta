@@ -53,6 +53,9 @@ namespace TestTenta
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            var context = app.ApplicationServices.GetService<ApplicationDbContext>();
+            AddTestData(context);
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
@@ -63,6 +66,26 @@ namespace TestTenta
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+
+        private static void AddTestData(ApplicationDbContext context)
+        {
+            var tv = new ProductCategory
+            {
+                Name = "TV"
+            };
+            var dvd = new ProductCategory
+            {
+                Name = "DVD"
+            };
+            var vhs = new ProductCategory
+            {
+                Name = "VHS"
+            };
+            context.Categories.AddRange(tv, dvd, vhs);
+
+            context.SaveChanges();
         }
     }
 }

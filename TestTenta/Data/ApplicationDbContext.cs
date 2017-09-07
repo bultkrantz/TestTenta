@@ -23,6 +23,7 @@ namespace TestTenta.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
+
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> Categories { get; set; }
     }
