@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -26,13 +22,12 @@ namespace TestTenta
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("TestTentaDb"));
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase("DefaultConnection"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
+            
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -40,7 +35,7 @@ namespace TestTenta
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -51,14 +46,13 @@ namespace TestTenta
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
-
-            var context = app.ApplicationServices.GetService<ApplicationDbContext>();
-            AddTestData(context);
+            }            
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            AddTestData(context);
 
             app.UseMvc(routes =>
             {

@@ -55,7 +55,7 @@ namespace TestTenta.Controllers
                 Value = c.Id.ToString()
             }));
 
-            ViewBag.categorySelect = categorySelect;
+            ViewBag.categorySelect = new SelectList(categorySelect, "Value", "Text"); 
             return View();
         }
 
@@ -87,7 +87,7 @@ namespace TestTenta.Controllers
                 Value = c.Id.ToString()
             }));
 
-            ViewBag.categorySelect = categorySelect;
+            ViewBag.categorySelect = new SelectList(categorySelect, "Value", "Text");
 
             if (id == null)
             {
