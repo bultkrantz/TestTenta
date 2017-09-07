@@ -33,6 +33,7 @@ namespace TestTenta
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ILoggerFactory, LoggerFactory>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.AddMvc();
         }
