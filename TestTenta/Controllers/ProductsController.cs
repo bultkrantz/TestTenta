@@ -7,21 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestTenta.Data;
 using TestTenta.Models;
+using Microsoft.Extensions.Logging;
 
 namespace TestTenta.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        ILogger _logger;
 
-        public ProductsController(ApplicationDbContext context)
+
+        public ProductsController(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
+            _logger = loggerFactory.CreateLogger("Index");
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            _logger.LogWarning("With great powers comes great responsibilities");
             return View(await _context.Products.ToListAsync());
         }
 

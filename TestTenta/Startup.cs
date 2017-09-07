@@ -8,6 +8,7 @@ using TestTenta.Data;
 using TestTenta.Models;
 using TestTenta.Services;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace TestTenta
 {
@@ -31,6 +32,7 @@ namespace TestTenta
             
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ILoggerFactory, LoggerFactory>();
 
             services.AddMvc();
         }
