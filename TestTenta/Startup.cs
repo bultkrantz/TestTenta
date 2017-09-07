@@ -29,7 +29,7 @@ namespace TestTenta
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<ILoggerFactory, LoggerFactory>();
@@ -50,13 +50,11 @@ namespace TestTenta
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }            
+            }
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
-            AddTestData(context);
 
             app.UseMvc(routes =>
             {
@@ -64,26 +62,8 @@ namespace TestTenta
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
 
-
-        private static void AddTestData(ApplicationDbContext context)
-        {
-            var tv = new ProductCategory
-            {
-                Name = "TV"
-            };
-            var dvd = new ProductCategory
-            {
-                Name = "DVD"
-            };
-            var vhs = new ProductCategory
-            {
-                Name = "VHS"
-            };
-            context.Categories.AddRange(tv, dvd, vhs);
-
-            context.SaveChanges();
+            DbInitializer.Initialize(context);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TestTenta.Services
         {
             _context = context;
         }
-        public SelectList GetSelectList()
+        public List<SelectListItem> GetSelectList()
         {
             var categories = _context.Categories.ToList();
             var categorySelect = new List<SelectListItem>();
@@ -26,7 +26,7 @@ namespace TestTenta.Services
                 Value = c.Id.ToString()
             }));
 
-            return new SelectList(categorySelect, "Value", "Text");
+            return categorySelect;
         }
     }
 }

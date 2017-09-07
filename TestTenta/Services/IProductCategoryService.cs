@@ -8,6 +8,6 @@ namespace TestTenta.Services
 {
     public interface IProductCategoryService
     {
-        SelectList GetSelectList();
+        List<SelectListItem> GetSelectList();
     }
 }
