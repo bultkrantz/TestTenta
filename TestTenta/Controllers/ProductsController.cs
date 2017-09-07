@@ -46,6 +46,16 @@ namespace TestTenta.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            var categories = _context.Categories.ToList();
+            var categorySelect = new List<SelectListItem>();
+
+            categories.ForEach(c => categorySelect.Add(new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }));
+
+            ViewBag.categorySelect = categorySelect;
             return View();
         }
 
@@ -68,6 +78,17 @@ namespace TestTenta.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var categories = _context.Categories.ToList();
+            var categorySelect = new List<SelectListItem>();
+
+            categories.ForEach(c => categorySelect.Add(new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }));
+
+            ViewBag.categorySelect = categorySelect;
+
             if (id == null)
             {
                 return NotFound();
